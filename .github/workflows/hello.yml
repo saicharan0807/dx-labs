@@ -1,0 +1,46 @@
+name: CI/CD Pipeline Workflow
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Say hello
+        run: echo "Hello from my self-hosted runner!"
+      
+      - name: Show system info
+        run: |
+          echo "Running on: $(hostname)"
+          echo "Current user: $(whoami)"
+          echo "Date: $(date)"
+      
+      - name: Build stage (dummy)
+        run: |
+          echo "🔨 Building application..."
+          sleep 2
+          echo "✅ Build completed successfully"
+  
+  test:
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - name: Test stage (dummy)
+        run: |
+          echo "🧪 Running tests..."
+          sleep 3
+          echo "✅ All tests passed"
+  
+  package:
+    runs-on: self-hosted
+    needs: test
+    steps:
+      - name: Package stage (dummy)
+        run: |
+          echo "📦 Packaging application..."
+          sleep 2
+          echo "✅ Package created successfully"
