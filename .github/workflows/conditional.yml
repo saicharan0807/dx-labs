@@ -1,0 +1,13 @@
+name: Conditional Steps
+on: [push]
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy to production
+        if: github.ref == 'refs/heads/main'
+        run: echo "Deploying to production"
+      - name: Deploy to staging
+        if: github.ref != 'refs/heads/main'
+        run: echo "Deploying to staging"

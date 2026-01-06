@@ -1,0 +1,15 @@
+name: Advanced Triggers
+on:
+  push:
+    branches: [main]
+    paths: ["src/**"]
+  pull_request:
+    types: [opened, synchronize]
+  schedule:
+    - cron: "0 2 * * 1"
+  workflow_dispatch:
+jobs:
+  trigger-test:
+    runs-on: self-hosted
+    steps:
+      - run: echo "Workflow triggered by ${{ github.event_name }}"

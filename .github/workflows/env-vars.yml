@@ -1,0 +1,17 @@
+name: Environment Variables
+env:
+  GLOBAL_VAR: production
+on: [push]
+jobs:
+  example:
+    runs-on: self-hosted
+    env:
+      JOB_VAR: job-level
+    steps:
+      - name: Print variables
+        env:
+          STEP_VAR: step-level
+        run: |
+          echo "Global: $GLOBAL_VAR"
+          echo "Job: $JOB_VAR"
+          echo "Step: $STEP_VAR"
