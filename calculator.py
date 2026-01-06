@@ -8,10 +8,10 @@ def multiply(a, b):
     return a * b
 
 def divide(a, b):
-    if b != 0:
-        return a / b
+    if b == 0:
+        raise ValueError("Cannot divide by zero")
     else:
-        return "Error: Division by zero!"
+        return a/b
 
 if __name__ == "__main__":
     print("Simple Calculator")
