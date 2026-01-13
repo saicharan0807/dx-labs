@@ -1,0 +1,28 @@
+name: Continuous Deployment
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run tests
+        run: node test_app.js &
+  
+  deploy:
+    needs: test
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Deploy application
+        run: ./deploy.sh ${{ github.sha }}
+      
+      - name: Verify deployment
+        run: |
+          sleep 5
+          curl -f http://localhost:3000
+          curl -f http://localhost:3000/health
+          echo "✅ Deployment verified successfully"
